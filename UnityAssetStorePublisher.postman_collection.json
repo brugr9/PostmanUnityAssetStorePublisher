@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "e089bfc3-8d66-4a55-b412-e8db852a00a8",
+		"name": "UnityAssetStorePublisher",
+		"description": "Postman Collection for Unity Asset Store Publisher API\n\nhttp://api.assetstore.unity3d.com/api-docs/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify invoice",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e648c447-31a0-442c-843f-d390fc567601",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"Invoices\", \"2,3,4\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca4c681e-7afd-4331-8607-c48f8fc4973f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{domain}}{{path}}/invoice/verify.json?key={{PublisherAPIKey}}&invoice={{Invoices}}",
+					"protocol": "https",
+					"host": [
+						"{{domain}}{{path}}"
+					],
+					"path": [
+						"invoice",
+						"verify.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{PublisherAPIKey}}"
+						},
+						{
+							"key": "invoice",
+							"value": "{{Invoices}}"
+						}
+					]
+				},
+				"description": "Verify invoice number(s)\n\nImplementation Notes:\nMultiple invoice numbers can be verified in a single call by supplying a comma separated string of invoice numbers."
+			},
+			"response": []
+		},
+		{
+			"name": "Create free voucher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b23a4824-7759-4513-a84d-f08040cf3da5",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"package_id\", \"0\");",
+							"pm.environment.set(\"quantity\", \"0\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cd96e4f-3b66-4127-8944-0b4d2536a71a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{domain}}{{path}}/free-voucher/create.json?key={{PublisherAPIKey}}&package_id={{package_id}}&quantity={{quantity}}",
+					"protocol": "https",
+					"host": [
+						"{{domain}}{{path}}"
+					],
+					"path": [
+						"free-voucher",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{PublisherAPIKey}}"
+						},
+						{
+							"key": "package_id",
+							"value": "{{package_id}}"
+						},
+						{
+							"key": "quantity",
+							"value": "{{quantity}}"
+						}
+					]
+				},
+				"description": "Create free package vouchers\n\nImplementation Notes: There is a limit to how many free package vouchers are allowed per package per year.\n\nMay 2018: \n\nFree Package Vouchers can be used to allow an Asset Store user to freely download a package using a voucher code. \nPublishers are not allowed to sell vouchers or otherwise charge for them. \nPublishers are able to issue 12 Free Package Vouchers per package within the last year. "
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "68cc4300-b400-4f46-9133-869809a9248b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a5e7fb11-1b3f-490d-bb75-848d51d9044c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f2bf27d6-befb-45a9-8d94-b552671c5f33",
+			"key": "domain",
+			"value": "api.assetstore.unity3d.com",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "b316e683-599c-4bf4-a29c-33f357845db4",
+			"key": "path",
+			"value": "/publisher/v1",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "680f29c8-a8de-4dec-8873-fb096b1e2755",
+			"key": "PublisherAPIKey",
+			"value": "",
+			"type": "string",
+			"description": ""
+		}
+	]
+}
